@@ -1,0 +1,20 @@
+services:
+  openvpn:
+    image: kylemanna/openvpn
+    container_name: openvpn
+    volumes:
+      - ./ovpn-data:/etc/openvpn:rw
+    environment:
+      - OVPN_SERVER=443
+      - OVPN_PROTOCOL=tcp
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "443:1194/tcp"
+    restart: always
+    networks:
+      - openvpn
+
+networks:
+  openvpn:
+    driver: bridge
